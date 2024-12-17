@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica las Tablas de Multiplicar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        input {
+            margin: 5px;
+            padding: 8px;
+            font-size: 16px;
+            width: 50px;
+            text-align: center;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .operation {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        .result-message {
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Practica las Tablas de Multiplicar</h1>
+    <div>
+        <label for="min">Mínimo:</label>
+        <input type="number" id="min" value="1" min="1" max="9">
+        <label for="max">Máximo:</label>
+        <input type="number" id="max" value="9" min="1" max="9">
+    </div>
+    <button onclick="generarOperacion()">Generar Operación</button>
+    <div class="operation" id="operacion"></div>
+    <div>
+        <label for="respuesta">Tu respuesta:</label>
+        <input type="number" id="respuesta">
+    </div>
+    <button onclick="comprobarRespuesta()">Comprobar Respuesta</button>
+    <div class="result-message" id="mensaje"></div>
+
+    <script>
+        let numero1, numero2;
+
+        function generarOperacion() {
+            // Obtener el mínimo y máximo
+            const min = parseInt(document.getElementById('min').value);
+            const max = parseInt(document.getElementById('max').value);
+
+            // Validar el rango
+            if (min < 1 || max > 9 || min > max) {
+                alert("Por favor, introduce valores entre 1 y 9, donde el mínimo sea menor o igual al máximo.");
+                return;
+            }
+
+            // Generar números aleatorios
+            numero1 = Math.floor(Math.random() * (max - min + 1)) + min;
+            numero2 = Math.floor(Math.random() * 9) + 1;
+
+            // Mostrar la operación
+            document.getElementById('operacion').textContent = `${numero1} x ${numero2}`;
+            document.getElementById('respuesta').value = ''; // Limpiar la respuesta
+            document.getElementById('mensaje').textContent = ''; // Limpiar el mensaje
+        }
+
+        function comprobarRespuesta() {
+            // Obtener la respuesta del usuario
+            const respuestaUsuario = parseInt(document.getElementById('respuesta').value);
+            const resultadoCorrecto = numero1 * numero2;
+
+            // Comprobar la respuesta
+            if (respuestaUsuario === resultadoCorrecto) {
+                document.getElementById('mensaje').textContent = "¡Correcto! 🎉";
+                document.getElementById('mensaje').style.color = "green";
+            } else {
+                document.getElementById('mensaje').textContent = `Incorrecto. La respuesta correcta es ${resultadoCorrecto}.`;
+                document.getElementById('mensaje').style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>
